@@ -1,0 +1,62 @@
+# Ignore Python bytecodes
+*.pyc
+
+# Ignore database files
+*.sqlite3
+*.db
+
+# Ignore static files collected by Django's collectstatic
+/staticfiles/
+
+# Ignore media files
+/media/
+
+# Ignore environment-specific settings
+.env
+chatapp-venv/
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
+*.pyc
+*.pyo
+*.bak
+*.tmp
+*.tmp.*
+*.log
+*.flp
+*.log
+*.vs
+.idea/
+.vscode/
+*.rsuser
+*.pyc
+*.pyo
+*.vagrant
+*.pro.user
+*node_modules/
+
+# Ignore pipenv and virtualenv files
+Pipfile.lock
+pipenv.lock
+.virtualenv/
+
+# Ignore local development settings
+settings/local.py
+
+# Ignore sensitive or private files
+secrets.json
+
+# Ignore backup files created by editors or operating systems
+*~
+
+# Ignore Django's migrations
+**/migrations/

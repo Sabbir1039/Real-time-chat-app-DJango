@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Real-Time Chat</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    
+</head>
+<body>
+    <div class="container vh-100 bg-light">
+        <h1 class="text-center p-3 border-bottom">Welcome to the Chat Room</h1>
+        <div class="bg-info p-3" id="chat-messages">
+            Messages:
+        </div>
+        <form class="form my-2" id="message-form">
+            <div class="form-group">
+                <input class="form-control" type="text" id="message-input" autocomplete="off">
+            </div>
+            <button class="btn btn-info mt-2" type="submit">Send</button>
+        </form>
+    </div>
+    
+</body>
+</html>

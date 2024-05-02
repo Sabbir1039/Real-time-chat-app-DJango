@@ -1,0 +1,25 @@
+{% extends 'usersapp/base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="intro col-xs-12">
+                <h1>Wellcome</h1>
+                <h2>Django Authentication App</h2>
+
+                <div class="links">
+                    {% if user.is_authenticated %}
+                        <p>Username: {{ user }}</p>
+                        <a href="{% url 'profile' %}">Profile</a>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                        <a href="{% url 'login' %}">Login</a>
+                        <a href="{% url 'register' %}">Register</a>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

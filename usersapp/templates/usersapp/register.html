@@ -1,0 +1,17 @@
+{% extends 'usersapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container">
+        <div class="form-section">
+            <h2 class="border-bottom py-2">Sign Up</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ forms|crispy }}
+                <button class="btn btn-success" type="submit">Sign Up</button>
+            </form>
+            <p class="py-1">Already have an account! <a href="{% url 'login' %}">Sign In Here</a></p>
+        </div>
+        
+    </div>
+{% endblock %}

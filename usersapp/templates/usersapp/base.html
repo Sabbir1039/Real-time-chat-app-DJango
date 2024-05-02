@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>Django-ChatApp</title>
+    {% endif %}
+
+    
+</head>
+<body>
+    <h1 class="text-center p-2 bg-info text-light">ChatApp Users</h1>
+    <div class="container-fluid">
+        <div class="container">
+            <div class="error-section">
+                {% for msg in messages %}
+                    <p class="alert alert-{{ msg.tags }}">{{ msg }}</p>
+                {% endfor %}
+            </div>
+            
+        </div>
+
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>

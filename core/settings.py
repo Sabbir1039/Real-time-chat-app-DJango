@@ -138,7 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "usersapp.CustomUser"
 
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/chat/"
 
 # for message tags
 from django.contrib.messages import constants as messages

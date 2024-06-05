@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <h2 class="p-3 text-center bg-primary text-light">Chat Room: {{ room_name }}</h2>
-        <form class="text-center" class="form">
+        <form class="text-center" class="form" onsubmit="return false">
             <textarea disabled class="form-control" id="chat-log" cols="100" rows="15"></textarea><br>
             <input class="form-control" id="chat-message-input" type="text" size="100"><br>
             <input class="btn btn-success btn-lg btn-block" id="chat-message-submit" type="button" value="Send">

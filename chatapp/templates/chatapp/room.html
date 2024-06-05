@@ -29,8 +29,17 @@
             </div>
         </nav>
 
+        {% if request.user.is_authenticated %}
+            
+        {% else %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Warning!</strong> User is not logged in!.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+
         <form class="text-center" class="form" onsubmit="return false">
-            <textarea disabled class="form-control" id="chat-log" cols="100" rows="15"></textarea><br>
+            <textarea disabled class="form-control" id="chat-log" cols="100" rows="12"></textarea><br>
             <input class="form-control" id="chat-message-input" type="text" size="100"><br>
             <input class="btn btn-success btn-md btn-block" id="chat-message-submit" type="button" value="Send">
             {{ room_name|json_script:"room-name" }}

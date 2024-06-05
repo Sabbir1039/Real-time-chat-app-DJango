@@ -16,12 +16,15 @@
     
 </head>
 <body>
-    <h1 class="text-center p-2 bg-info text-light">ChatApp Users</h1>
-    <div class="container-fluid">
+    <div class="container">
+        <h1 class="text-center p-2 bg-info text-light">ChatApp Users</h1>
         <div class="container">
             <div class="error-section">
                 {% for msg in messages %}
-                    <p class="alert alert-{{ msg.tags }}">{{ msg }}</p>
+                    <div class="alert alert-{{ msg.tags }} alert-dismissible fade show" role="alert">
+                        {{ msg }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                 {% endfor %}
             </div>
             

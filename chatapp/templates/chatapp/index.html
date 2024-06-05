@@ -10,14 +10,32 @@
 
 </head>
 <body>
-    <div class="container bg-light">
+    <div class="container bg-light p-0">
         <h1 class="text-center p-3 bg-info">Chat App</h1>
-        <p>What chat room would you like to enter?</p>
 
-        <div class="form-group">
-            <input class="form-control" id="room-name-input" type="text" size="100"><br>
-            <input class="btn btn-secondary" id="room-name-submit" type="button" value="Enter">
+        <nav class="navbar navbar-expand navbar-light bg-light">
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item mx-1">
+                    <a class="nav-link btn btn-sm btn-info" href="{% url 'index' %}">Home</a>
+                </li>
+                <li class="nav-item mx-1">
+                    <a class="nav-link btn btn-sm btn-info" href="{% url 'logout' %}">Logout</a>
+                </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="mx-3 py-3">
+            <p>What chat room would you like to enter?</p>
+
+            <div class="form-group">
+                <input class="form-control" id="room-name-input" type="text" size="100"><br>
+                <input class="btn btn-success" id="room-name-submit" type="button" value="Enter">
+            </div>
         </div>
+
+        
     </div>
    
     <script>

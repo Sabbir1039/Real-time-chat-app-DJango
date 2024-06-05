@@ -12,14 +12,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room_group_name = f'chat_{self.room_name}'
         
         print("*****Connected")
+        print(self.scope['user'])
         
-        # Add the channel (WebSocket connection) to the group
-        await self.channel_layer.group_add(
-            self.room_group_name,
-            self.channel_name # Unique identifier for the WebSocket connection
-        )
-        # Accept the WebSocket connection
-        await self.accept()
+        if self.scope['user'].is_authenticated:
+            # Add the channel (WebSocket connection) to the group
+            await self.channel_layer.group_add(
+                self.room_group_name,
+                self.channel_name # Unique identifier for the WebSocket connection
+            )
+            # Accept the WebSocket connection
+            await self.accept()
+        else:
+            await self.close()
         
 
     async def disconnect(self, close_code):

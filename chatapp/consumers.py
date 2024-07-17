@@ -1,7 +1,11 @@
 # chatapp/consumers.py
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
+from django.conf import settings
+from asgiref.sync import sync_to_async
+from .models import Room, Message
 
+User = settings.AUTH_USER_MODEL
 
 class ChatConsumer(AsyncWebsocketConsumer):
     
@@ -10,6 +14,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         # Creating a unique group name for the room
         self.room_group_name = f'chat_{self.room_name}'
+        
+        # Check if the room exists, if not create it
+        self.room, created = await sync_to_async(Room.objects.get_or_create)(name=self.room_name)
         
         print("*****Connected")
         print(self.scope['user'])
@@ -39,6 +46,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
         username = text_data_json["username"]
+        
+        user = await sync_to_async(User.objects.get)(username=username)
+        
+        # Save the message to the database
+        await sync_to_async(Message.objects.create)(
+            room=self.room,
+            user=user,
+            content=message
+        )
 
         # Send the message to the group
         await self.channel_layer.group_send(

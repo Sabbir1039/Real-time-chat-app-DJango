@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 def index(request):
     user = request.user
     if user.is_authenticated:
-        return render(request, "chatapp/index.html")
+        return render(request, "chatapp/room-entry.html")
     else:
         return redirect('login')
 

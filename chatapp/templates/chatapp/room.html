@@ -1,8 +1,40 @@
 {% extends 'chatapp/base.html' %}
 
+{% block style %}
+<style>
+    #chat-log {
+        height: 300px;
+        overflow-y: scroll;
+        border: 1px solid #ccc;
+        padding: 10px;
+        background-color: #f8f8f8;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .chat-message {
+        padding: 5px 10px;
+        margin: 5px 0;
+        border-radius: 10px;
+        width: fit-content;
+        max-width: 80%;
+    }
+
+    .my-message {
+        background-color: #d1ffd1;
+        align-self: flex-start;
+    }
+
+    .other-message {
+        background-color: #e6e6e6;
+        align-self: flex-end;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
     <div class="col-md-10 mx-auto">
-        <p class="p-1 text-center bg-primary text-light">Chat Room: {{ room_name }}</p>
+        <p class="text-center">Chat Room: {{ room_name }}</p>
 
         {% if request.user.is_authenticated %}
             
@@ -13,55 +45,73 @@
             </div>
         {% endif %}
 
+        <div id="chat-log">
+            {% for message in messages %}
+                <div class="chat-message {% if message.user == request.user %}my-message{% else %}other-message{% endif %}">
+                    <strong>{{ message.user.username }}</strong>: {{ message.content }}
+                </div>
+            {% endfor %}
+        </div>
+
         <form class="text-center" class="form" onsubmit="return false">
-            <textarea disabled class="form-control" id="chat-log" cols="100" rows="12"></textarea><br>
             <input class="form-control" id="chat-message-input" type="text" size="100"><br>
             <input class="btn btn-success btn-md btn-block" id="chat-message-submit" type="button" value="Send">
             {{ room_name|json_script:"room-name" }}
-            {{ request.user.username|json_script:"user_username" }}
+            {{ request.user.username|json_script:"user-username" }}
         </form>
     </div>
 {% endblock %}
 
 {% block script %}
-    <script>
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
-        const userName = JSON.parse(document.getElementById('user_username').textContent);
+<script>
+    const roomName = JSON.parse(document.getElementById('room-name').textContent);
+    const userName = JSON.parse(document.getElementById('user-username').textContent);
 
-        const chatSocket = new WebSocket(
-            'ws://'
-            + window.location.host
-            + '/ws/chat/'
-            + roomName
-            + '/'
-        );
+    const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/chat/'
+        + roomName
+        + '/'
+    );
 
-        chatSocket.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-            console.log(data);
-            document.querySelector('#chat-log').value += (data.username+ ' : ' + data.message + '\n');
-        };
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        // console.log(data);
 
-        chatSocket.onclose = function(e) {
-            console.error('Chat socket closed unexpectedly');
-        };
+        const chatLog = document.querySelector('#chat-log');
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('chat-message');
+        messageElement.classList.add(data.username === userName ? 'my-message' : 'other-message');
+        messageElement.textContent = `${data.username}: ${data.message}`;
+        chatLog.appendChild(messageElement);
 
-        document.querySelector('#chat-message-input').focus();
-        document.querySelector('#chat-message-input').onkeyup = function(e) {
-            if (e.key === 'Enter') {  // enter, return
-                document.querySelector('#chat-message-submit').click();
-            }
-        };
+        // Scroll to the bottom of the chat log
+        chatLog.scrollTop = chatLog.scrollHeight;
+    };
 
-        document.querySelector('#chat-message-submit').onclick = function(e) {
-            const messageInputDom = document.querySelector('#chat-message-input');
-            const message = messageInputDom.value;
-            chatSocket.send(JSON.stringify({
-                'message': message,
-                'username': userName,
-            }));
-            messageInputDom.value = '';
-        };
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
 
-    </script>
+    document.querySelector('#chat-message-input').focus();
+    document.querySelector('#chat-message-input').onkeyup = function(e) {
+        if (e.key === 'Enter') {
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        const messageInputDom = document.querySelector('#chat-message-input');
+        const message = messageInputDom.value;
+        if (message.trim() === "") {
+            return;
+        }
+        chatSocket.send(JSON.stringify({
+            'message': message,
+            'username': userName,
+        }));
+        messageInputDom.value = '';
+    };
+</script>
 {% endblock %}

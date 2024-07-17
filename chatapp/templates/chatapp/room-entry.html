@@ -21,11 +21,9 @@
         <div class="mx-3">
             <p class="text-center fs-4">Recent Rooms</p>
             <ul class="list-group room-list">
-                <li class="list-group-item room">Lobby</li>
-                <li class="list-group-item room">Persona</li>
-                <li class="list-group-item room">Test Room</li>
-                <li class="list-group-item room">Test</li>
-                <li class="list-group-item room">Room</li>
+                {% for room in rooms %}
+                    <li class="list-group-item room">{{ room.name }}</li>
+                {% endfor %}
             </ul>
         </div>
     </div>

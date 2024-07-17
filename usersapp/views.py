@@ -14,7 +14,7 @@ def user_register(request):
             form.save()
             username = form.cleaned_data.get("username")
             messages.success(request,f"Successfully account created for {username}")
-            redirect('login')
+            return redirect('login')
             
         else:
             messages.error(request,'Error! Can not create account. Try agin!')

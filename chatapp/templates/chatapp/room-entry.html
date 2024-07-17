@@ -1,0 +1,68 @@
+{% extends 'chatapp/base.html' %}
+
+{% block style %}
+    <style>
+        .room-list ul {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+        }
+
+        .room-list li:hover {
+            background-color: #d7ffe3;
+            cursor: pointer;
+        }
+        
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-4">
+        <div class="mx-3">
+            <p class="text-center fs-4">Recent Rooms</p>
+            <ul class="list-group room-list">
+                <li class="list-group-item room">Lobby</li>
+                <li class="list-group-item room">Persona</li>
+                <li class="list-group-item room">Test Room</li>
+                <li class="list-group-item room">Test</li>
+                <li class="list-group-item room">Room</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-8 my-md-0 my-2">
+        <div class="mx-4">
+            <p class="fs-4">What chat room would you like to enter?</p>
+            <div class="form-group">
+                <input class="form-control" id="room-name-input" type="text" size="100"><br>
+                <input class="btn btn-success" id="room-name-submit" type="button" value="Enter">
+            </div> 
+        </div>
+    </div>
+       
+{% endblock %}
+
+{% block script %}
+    <script>
+        document.querySelector('#room-name-input').focus();
+        document.querySelector('#room-name-input').onkeyup = function(e) {
+            if (e.key === 'Enter') {  // enter, return
+                document.querySelector('#room-name-submit').click();
+            }
+        };
+
+        document.querySelector('#room-name-submit').onclick = function(e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            window.location.pathname = '/chat/' + roomName + '/';
+        };
+
+        let roomList = document.querySelector(".room-list");
+        roomList.addEventListener("click", (event) => {
+            if(event.target.classList.contains("room")) {
+                let roomName = event.target.innerText;
+                console.log(roomName);
+                window.location.pathname = `/chat/${roomName}/`;
+            }
+        });
+    </script>
+{% endblock %}

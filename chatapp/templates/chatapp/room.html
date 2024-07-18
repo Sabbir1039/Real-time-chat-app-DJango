@@ -3,7 +3,7 @@
 {% block style %}
 <style>
     #chat-log {
-        height: 300px;
+        height: 450px;
         overflow-y: scroll;
         border: 1px solid #ccc;
         padding: 10px;
@@ -34,7 +34,7 @@
 
 {% block content %}
     <div class="col-md-10 mx-auto">
-        <p class="text-center">Chat Room: {{ room_name }}</p>
+        <p class="text-center">Room name: {{ room_name }}</p>
 
         {% if request.user.is_authenticated %}
             
@@ -48,7 +48,7 @@
         <div id="chat-log">
             {% for message in messages %}
                 <div class="chat-message {% if message.user == request.user %}my-message{% else %}other-message{% endif %}">
-                    <strong>{{ message.user.username }}</strong>: {{ message.content }}
+                    {{ message.user.username }}: {{ message.content }}
                 </div>
             {% endfor %}
         </div>

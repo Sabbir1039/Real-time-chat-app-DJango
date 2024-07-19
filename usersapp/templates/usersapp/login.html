@@ -2,9 +2,9 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="container">
+    <div class="container" style="min-width: 600px;">
         <div class="form-section">
-            <h2 class="border-bottom py-2">User Sign In</h2>
+            <h3 class="border-bottom py-2 text-center">Sign In</h3>
             <form method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}

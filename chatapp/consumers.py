@@ -18,9 +18,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # Check if the room exists, if not create it
         self.room, created = await sync_to_async(Room.objects.get_or_create)(name=self.room_name)
         
-        print("*****Connected")
-        print(self.scope['user'])
-        
         if self.scope['user'].is_authenticated:
             # Add the channel (WebSocket connection) to the group
             await self.channel_layer.group_add(
@@ -35,7 +32,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         # Remove the channel from the group on disconnect
-        print("*****disconnected")
         await self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name
@@ -46,7 +42,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
         username = text_data_json["username"]
-        
         user = await sync_to_async(User.objects.get)(username=username)
         
         # Save the message to the database

@@ -1,27 +1,41 @@
 {% extends 'usersapp/base.html' %}
 {% load crispy_forms_tags %}
 
+{% block style %}
+<style>
+    .top {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 12px;
+    }
+    .form-section {
+        font-size: 12px;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-    <div class="container">
-        <div class="form-section my-3">
+    <div class="form-section">
+        <div class="top">
+            <div>
+                <h3>{{ user.username }}'s Profile</h3>
+                <p>Name: {{ user.username }}</p>
+                <p>Back to <a href="{% url 'index' %}">Home</a></p>
+            </div>
+            
             <img class="rounded-circle" src="{{ user.profile_pic.url }}" height="200px" width="200px">
-            <h2>{{ user.username }}'s Profile</h2>
-            <p>Name: {{ user.username }}</p>
-
-
-            <p>Back to <a href="{% url 'home' %}">Home</a></p>
-
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Profile Info</legend>
-                    {{ p_form|crispy }}
-                </fieldset>
-                <div class="form-group">
-                    <button class="btn btn-outline-info" type="submit">Update</button>
-                </div>
-            </form>
         </div>
-        
+       
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Profile Info</legend>
+                {{ p_form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Update</button>
+            </div>
+        </form>
     </div>
 {% endblock %}

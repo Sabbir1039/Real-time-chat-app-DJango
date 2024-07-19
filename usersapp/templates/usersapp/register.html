@@ -2,16 +2,13 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="container" style="min-width: 600px;">
-        <div class="form-section">
-            <h3 class="border-bottom py-2 text-center">Sign Up</h3>
-            <form method="POST">
-                {% csrf_token %}
-                {{ forms|crispy }}
-                <button class="btn btn-success" type="submit">Sign Up</button>
-            </form>
-            <p class="py-1">Already have an account! <a href="{% url 'login' %}">Sign In Here</a></p>
-        </div>
-        
+    <div class="form-section">
+        <h3 class="border-bottom py-2 text-center">Sign Up</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ forms|crispy }}
+            <button class="btn btn-success" type="submit">Sign Up</button>
+        </form>
+        <p class="py-1">Already have an account! <a href="{% url 'login' %}">Sign In Here</a></p>
     </div>
 {% endblock %}

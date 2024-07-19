@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
+from django.contrib import messages
 from .models import Room, Message
 
 def index(request):
@@ -24,3 +25,12 @@ def room(request, room_name):
         "room_name": room_name,
         "messages": messages
     })
+    
+def delete_room(request, room_id):
+    room = Room.objects.get(id=room_id)
+    if room:
+        room.delete()
+        return redirect('index')
+    else:
+        messages.error(request,'Error! Can not delete room. Try agin!')
+        return redirect('index')

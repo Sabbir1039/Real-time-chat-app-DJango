@@ -2,42 +2,64 @@
 
 {% block style %}
     <style>
+        .rooms {
+            height: 80vh;
+            border-radius: 8px;
+            overflow-y: auto;
+        }
+
+        .room-entry {
+            border-radius: 8px;
+        }
+
         .room-list ul {
             padding: 0;
             margin: 0;
             list-style-type: none;
         }
 
+        .room-list li {
+            padding: 5px 12px;
+            cursor: pointer;
+            min-width: 150px;
+            border-radius: 5px;
+        }
+
         .room-list li:hover {
             background-color: #d7ffe3;
-            cursor: pointer;
         }
         
     </style>
 {% endblock %}
 
 {% block content %}
-    <div class="col-md-4">
-        <div class="mx-3">
-            <p class="text-center fs-4">Recent Rooms</p>
-            <ul class="list-group room-list">
-                {% for room in rooms %}
-                    <li class="list-group-item room">{{ room.name }}</li>
-                {% endfor %}
-            </ul>
+    <div class="row d-flex justify-content-around">
+        <div class="col-md-4 bg-light p-3 rooms">
+            <div class="mx-3">
+                <p class="text-center fs-4">Recent Rooms</p>
+                <ul class="list-group room-list">
+                    {% for room in rooms %}
+                        <div class="d-flex justify-content-between my-1">
+                            <li class="list-group-item room align-items-center">
+                                {{ room.name }}
+                            </li>
+                            <a class="btn btn-sm btn-danger" href="{% url 'room-delete' room.id %}">Delete</a>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    
+        <div class="col-md-7 my-md-0 my-2 bg-light p-3 room-entry">
+            <div class="mx-4">
+                <p class="fs-4">What chat room would you like to enter?</p>
+                <div class="form-group">
+                    <input class="form-control" id="room-name-input" type="text" size="100"><br>
+                    <input class="btn btn-success" id="room-name-submit" type="button" value="Enter">
+                </div> 
+            </div>
         </div>
     </div>
-
-    <div class="col-md-8 my-md-0 my-2">
-        <div class="mx-4">
-            <p class="fs-4">What chat room would you like to enter?</p>
-            <div class="form-group">
-                <input class="form-control" id="room-name-input" type="text" size="100"><br>
-                <input class="btn btn-success" id="room-name-submit" type="button" value="Enter">
-            </div> 
-        </div>
-    </div>
-       
 {% endblock %}
 
 {% block script %}
@@ -62,5 +84,14 @@
                 window.location.pathname = `/chat/${roomName}/`;
             }
         });
+
+        // let roomList = document.querySelectorAll(".room");
+        // roomList.forEach((list) => {
+        //     list.addEventListener('click', (event) => {
+        //         let roomName = event.target.innerText;
+        //         console.log(roomName);
+        //         window.location.pathname = `/chat/${roomName}/`;
+        //     })
+        // })
     </script>
 {% endblock %}

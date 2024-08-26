@@ -38,6 +38,7 @@ def user_profile(request):
             return redirect('profile')
     else:
         context = {
-            "p_form": UserUpdateForm(instance=request.user)
+            "p_form": UserUpdateForm(instance=request.user),
+            "title": f"{request.user}'s Profile"
         }
         return render(request, 'usersapp/profile.html', context)

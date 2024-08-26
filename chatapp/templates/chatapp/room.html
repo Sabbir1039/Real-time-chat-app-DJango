@@ -11,7 +11,7 @@
         overflow-y: scroll;
         border: 1px solid #ccc;
         padding: 10px;
-        background-color: #dff6fd;
+        background-color: #fff;
         display: flex;
         flex-direction: column;
     }
@@ -38,7 +38,7 @@
 
 {% block content %}
     <div class="col-md-10 mx-auto my-2">
-        <p class="btn btn-sm btn-outline-success">Room name: {{ room_name }}</p>
+        <p class="btn btn-sm btn-success">Room name: {{ room_name }}</p>
 
         {% if request.user.is_authenticated %}
             

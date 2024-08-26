@@ -38,7 +38,7 @@
         
         <div class="row header bg-light">
             <div class="col-sm-2 user-info">
-                <img src="{% static 'chatapp/images/default.png' %}" alt="user image" height="30px" width="30px">
+                <img class="rounded-circle" src="{{ request.user.profile_pic.url }}" alt="user image" height="30px" width="30px">
                 <p class="p-0 my-0 mx-1">{{ request.user }}</p>
             </div>
             

@@ -1,0 +1,43 @@
+<!-- templates/chatapp/404.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f8f9fa;
+    }
+    .error-container {
+      text-align: center;
+    }
+    .error-code {
+      font-size: 10rem;
+      font-weight: bold;
+    }
+    .error-message {
+      font-size: 1.5rem;
+    }
+    a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="error-container">
+      <div class="error-code text-danger">404</div>
+      <p class="error-message">Oops! The page you're looking for doesn't exist.</p>
+      <a href="{% url 'index' %}" class="btn btn-primary">Go to Homepage</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -3,6 +3,9 @@ from django.views.generic import TemplateView
 from django.contrib import messages
 from .models import Room, Message
 
+def custom_404(request, *args, **kwargs):
+    return render(request, "chatapp/404.html", status=404)
+
 def index(request):
     user = request.user
     if user.is_authenticated:

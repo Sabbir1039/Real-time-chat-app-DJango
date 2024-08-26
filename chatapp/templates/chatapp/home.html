@@ -7,13 +7,17 @@
 {% block style %}
     <style>
         .rooms {
-            height: 80vh;
+            max-height: 80vh;
             border-radius: 8px;
-            overflow-y: auto;
+            overflow-y: scroll;
+            box-shadow: rgba(33, 35, 38, 0.1) 5px 5px 10px 3px;
+            background-color: #fff;
         }
 
         .room-entry {
             border-radius: 8px;
+            box-shadow: rgba(33, 35, 38, 0.1) 5px 5px 10px 3px;
+            background-color: #fff;
         }
 
         .room-list ul {
@@ -37,8 +41,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row d-flex justify-content-around">
-        <div class="col-md-4 bg-light p-3 rooms">
+    <div class="row my-3 d-flex justify-content-around">
+        <div class="col-sm-5 col-md-4 p-3 rooms">
             <div class="mx-3">
                 <p class="text-center fs-4">Recent Rooms</p>
                 <ul class="list-group room-list">
@@ -47,14 +51,14 @@
                             <li class="list-group-item room align-items-center">
                                 {{ room.name }}
                             </li>
-                            <a class="btn btn-sm btn-danger" href="{% url 'room-delete' room.id %}">Delete</a>
+                            <a class="btn btn-xs btn-danger" href="{% url 'room-delete' room.id %}">Delete</a>
                         </div>
                     {% endfor %}
                 </ul>
             </div>
         </div>
     
-        <div class="col-md-7 my-md-0 my-2 bg-light p-3 room-entry">
+        <div class="col-sm-6 col-md-7 my-md-0 my-2 p-3 room-entry">
             <div class="mx-4">
                 <p class="fs-4">What chat room would you like to enter?</p>
                 <div class="form-group">

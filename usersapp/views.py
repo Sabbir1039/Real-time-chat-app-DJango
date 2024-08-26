@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect
-from usersapp.models import CustomUser
 from django.contrib import messages
 from usersapp.forms import UserRegistrationForm, UserUpdateForm
-from django.views import generic
 
-# class HomeView(generic.TemplateView):
-#     template_name = "usersapp/home.html"
     
 def user_register(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+    
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():

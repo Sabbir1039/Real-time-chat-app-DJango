@@ -1,11 +1,9 @@
-
 from django.urls import path
 from usersapp import views as users_views
 from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-#     path('', users_views.HomeView.as_view(), name='home'),
     path('register/', users_views.user_register, name='register'),
     path('profile/', users_views.user_profile, name='profile'),
     

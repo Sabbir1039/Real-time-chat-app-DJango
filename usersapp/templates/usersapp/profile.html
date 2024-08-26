@@ -20,7 +20,7 @@
             <div>
                 <h3>{{ user.username }}'s Profile</h3>
                 <p>Name: {{ user.username }}</p>
-                <p>Back to <a href="{% url 'index' %}">Home</a></p>
+                <p>Back to <a href="{% url 'home' %}">Home</a></p>
             </div>
             
             <img class="rounded-circle" src="{{ user.profile_pic.url }}" height="200px" width="200px">

@@ -1,5 +1,9 @@
 {% extends 'chatapp/base.html' %}
 
+{% block title %}
+    Room-{{ room_name }}
+{% endblock %}
+
 {% block style %}
 <style>
     #chat-log {

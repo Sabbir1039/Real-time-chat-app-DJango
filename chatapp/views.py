@@ -6,14 +6,14 @@ from .models import Room, Message
 def custom_404(request, *args, **kwargs):
     return render(request, "chatapp/404.html", status=404)
 
-def index(request):
+def home(request):
     user = request.user
     if user.is_authenticated:
         rooms = Room.objects.all().order_by('-created_at')
         context = {
             "rooms": rooms
         }
-        return render(request, "chatapp/room-entry.html", context)
+        return render(request, "chatapp/home.html", context)
     else:
         return redirect('login')
 
@@ -33,7 +33,7 @@ def delete_room(request, room_id):
     room = Room.objects.get(id=room_id)
     if room:
         room.delete()
-        return redirect('index')
+        return redirect('home')
     else:
         messages.error(request,'Error! Can not delete room. Try agin!')
-        return redirect('index')
+        return redirect('home')

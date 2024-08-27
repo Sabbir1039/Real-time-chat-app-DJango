@@ -13,6 +13,7 @@
 
 # Ignore environment-specific settings
 .env
+venv/
 chatapp-venv/
 
 # Ignore IDE and editor files
@@ -60,3 +61,5 @@ secrets.json
 
 # Ignore Django's migrations
 **/migrations/
+
+test_pass.txt

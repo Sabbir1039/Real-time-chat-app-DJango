@@ -18,16 +18,20 @@ def home(request):
         return redirect('login')
 
 def room(request, room_name):
-    room = Room.objects.filter(name=room_name).first()
-    if not room:
-        messages = None   
+    user = request.user
+    if user.is_authenticated:
+        room = Room.objects.filter(name=room_name).first()
+        if not room:
+            messages = None   
+        else:
+            messages = Message.objects.filter(room=room).order_by('timestamp')
+        
+        return render(request, "chatapp/room.html", {
+            "room_name": room_name,
+            "messages": messages
+        })
     else:
-        messages = Message.objects.filter(room=room).order_by('timestamp')
-    
-    return render(request, "chatapp/room.html", {
-        "room_name": room_name,
-        "messages": messages
-    })
+        return redirect('login')
     
 def delete_room(request, room_id):
     room = Room.objects.get(id=room_id)
